@@ -3,10 +3,10 @@ import { findTermInstances } from "./utils/findTermInstances";
 // ["Customer"]
 console.log(findTermInstances("The Customer is always right", "Customer, you"));
 
-// TODO: The term "us" is within the text but not as a complete word! The word Customer contains "us"!
-
 // ["Customer", "our"]
 console.log(findTermInstances("The Customer is not our client", "Customer, us"));
+
+// TODO: Splitting the text string by a space delimiter means one of the textWords is myself, (notice the comma)
 
 // ["My", "myself", "Client"]
 console.log(findTermInstances("My rights cannot be abridged by myself, only the Client", "I, Client"));
