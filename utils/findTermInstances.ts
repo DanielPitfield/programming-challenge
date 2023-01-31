@@ -15,7 +15,7 @@ export function findTermInstances(text: string, terms: string): string[] {
 
       // Not a pronoun but the text has this term
       if (textWords.some((word) => word === term)) {
-        return [term];
+        return term;
       }
 
       // Term is not within text
