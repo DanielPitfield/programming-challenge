@@ -10,11 +10,11 @@ export function findTermInstances(text: string, terms: string): string[] {
     .map((term) => {
       if (isPronoun(term)) {
         // Any matching pronouns which are within the text
-        return findMatchingPronouns(term).filter((term) => textWords.some((word) => word === term));
+        return findMatchingPronouns(term).filter((term) => textWords.some((word) => word.startsWith(term)));
       }
 
       // Not a pronoun but the text has this term
-      if (textWords.some((word) => word === term)) {
+      if (textWords.some((word) => word.startsWith(term))) {
         return term;
       }
 
