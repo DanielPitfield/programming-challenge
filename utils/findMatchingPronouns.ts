@@ -1,11 +1,8 @@
-import { PronounGroup, pronounGroups } from "../data/pronouns";
+import { Pronoun, pronounGroups } from "../data/pronouns";
+import { getCaseSensitiveTerm } from "./getCaseSensitiveTerm";
 
-export function findMatchingPronouns(term: string): string[] {
-  const newTerm: string = term === "I" ? term : term.toLowerCase();
-
-  const matchingGroup: PronounGroup | undefined = pronounGroups.find((group) =>
-    group.pronouns.some((pronoun) => pronoun === newTerm)
-  );
+export function findMatchingPronouns(term: string): readonly Pronoun[] {
+  const matchingGroup = pronounGroups.find((group) => group.some((pronoun) => pronoun === getCaseSensitiveTerm(term)));
 
   // If the term couldn't be found within a group
   if (!matchingGroup) {
@@ -13,5 +10,5 @@ export function findMatchingPronouns(term: string): string[] {
   }
 
   // All matching pronouns
-  return matchingGroup.pronouns;
+  return matchingGroup;
 }
