@@ -1,18 +1,23 @@
 import { caseSensitivePronouns, Pronoun, pronounGroups } from "../data/pronouns";
 
-/* TODO: Alternative case
-Don't assume pronouns are always specified as lowercase in the data structure
-If the pronoun is specified as uppercase but is not case sensitive, map to lower case and vice versa
-*/
-function getUpperCasePronouns(pronouns: readonly Pronoun[]): string[] {
+function getAlternativeCasePronouns(pronouns: readonly Pronoun[]): string[] {
   return (
     pronouns
       // Pronouns are readonly, so make a copy
       .slice()
       // Only those which are NOT case sensitive
       .filter((pronoun) => !caseSensitivePronouns.some((x) => x === pronoun))
-      // Capitalise first letter
-      .map((pronoun) => `${pronoun[0].toUpperCase()}${pronoun.substring(1)}`)
+      // Map to alternative casing
+      .map((pronoun) => {
+        // Is the pronoun specified as lower case in the data structure?
+        const isPronounLowerCase: boolean = pronoun === pronoun.toLowerCase() && pronoun !== pronoun.toUpperCase();
+
+        return isPronounLowerCase ? 
+        // Capitalise first letter
+        `${pronoun[0].toUpperCase()}${pronoun.substring(1)}`
+        // Otherwise, convert to lower case
+        : pronoun.toLowerCase();
+      })
   );
 }
 
@@ -27,5 +32,5 @@ export function findMatchingPronouns(pronoun: Pronoun): string[] {
   }
 
   // All matching pronouns
-  return (matchingGroup.slice() as string[]).concat(getUpperCasePronouns(matchingGroup));
+  return (matchingGroup.slice() as string[]).concat(getAlternativeCasePronouns(matchingGroup));
 }
