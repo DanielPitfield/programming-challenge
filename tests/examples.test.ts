@@ -1,7 +1,7 @@
 import { findTermInstances } from "../utils/findTermInstances";
 
 test("Example 1", () => {
-  expect(findTermInstances("You must ensure that your fees are not high", "you")).toStrictEqual(["You, your"]);
+  expect(findTermInstances("You must ensure that your fees are not high", "you")).toStrictEqual(["You", "your"]);
 });
 
 test("Example 2", () => {
