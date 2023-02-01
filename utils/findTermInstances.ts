@@ -12,12 +12,12 @@ export function findTermInstances(text: string, terms: string): string[] {
       if (isPronoun(term)) {
         // Any matching pronouns which are within the text
         // TODO: Clean/trim textWords (split by space delimiter and can contain other punctuation)
-        return findMatchingPronouns(term as Pronoun).filter((pronoun) => textWords.some((word) => word === pronoun));
+        return textWords.filter(word => findMatchingPronouns(term as Pronoun).some(pronoun => pronoun === word));
       }
 
       // Not a pronoun but the text has this term
       if (textWords.some((word) => word === term)) {
-        return term;
+        return textWords.filter((word) => word === term);
       }
 
       // Term is not within text
