@@ -8,21 +8,22 @@ export function findTermInstances(text: string, terms: string): string[] {
   const textWords: string[] = text.split(" ").map((word) => getTrimmedWord(word));
   const allTerms: string[] = terms.split(", ");
 
-  return allTerms
+  const mappedTerms: string[] = allTerms
     .map((term) => {
       if (isPronoun(term)) {
         // Any matching pronouns which are within the text
-
-        return textWords.filter((word) => findMatchingPronouns(term as Pronoun).some((pronoun) => pronoun === word));
+        return findMatchingPronouns(term as Pronoun);
       }
 
       // Not a pronoun but the text has this term
       if (textWords.some((word) => word === term)) {
-        return textWords.filter((word) => word === term);
+        return [term];
       }
 
       // Term is not within text
       return [];
     })
     .flat();
+
+  return textWords.filter((textWord) => mappedTerms.some((term) => term === textWord));
 }
